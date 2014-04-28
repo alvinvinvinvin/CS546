@@ -1,0 +1,5 @@
+D:\study\csharp project\project2\PayRollSystem\PayRollSystemModel\bin\Debug\PayRollSystemModel.dll
+D:\study\csharp project\project2\PayRollSystem\PayRollSystemModel\bin\Debug\PayRollSystemModel.pdb
+D:\study\csharp project\project2\PayRollSystem\PayRollSystemModel\obj\Debug\PayRollSystemModel.dll
+D:\study\csharp project\project2\PayRollSystem\PayRollSystemModel\obj\Debug\PayRollSystemModel.pdb
+D:\study\csharp project\project2\PayRollSystem\PayRollSystemModel\obj\Debug\PayRollSystemModel.csprojResolveAssemblyReference.cache

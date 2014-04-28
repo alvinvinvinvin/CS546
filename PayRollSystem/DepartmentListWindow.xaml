@@ -1,0 +1,30 @@
+﻿<Window x:Class="PayRollSystem.DepartmentListWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="DepartmentEditWindow" Height="300" Width="500"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
+    <Grid>
+        <Grid>
+            <DockPanel>
+            <ToolBar Name="tbEdit" DockPanel.Dock="Top" Height="40">
+                    <Button Name="btnAdd" ToolTip="Add">
+                        <Image Source="Images/icons/new.ico"></Image>
+                    </Button>
+                    <Button Name="btnEdit" ToolTip="Edit">
+                        <Image Source="Images/icons/edit.ico"></Image>
+                    </Button>
+                    <Button Name="btnDelete" ToolTip="Delete">
+                        <Image Source="Images/icons/delete3.ico"></Image>
+                    </Button>
+                </ToolBar>
+                <DataGrid Name="datagrid" IsReadOnly="True" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn x:Name="colDepartmentName" Width="100" Binding="{Binding DepartmentName}"></DataGridTextColumn>
+                        <DataGridTextColumn x:Name="colDepartmentManagerName" Width="100" Binding="{Binding DepartmentManagerName}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+        </Grid>
+        
+    </Grid>
+</Window>

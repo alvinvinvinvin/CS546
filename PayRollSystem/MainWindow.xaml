@@ -9,7 +9,7 @@
                 <MenuItem Name="mnFile" Header="File" Height="24" Width="70">
                     <!--<MenuItem Name="miOperatorMgr" Header="Operators" Click="miOperatorMgr_Click"></MenuItem>-->
                     <MenuItem Name="miBuidSalarySheet" Header="SalarySheet" Click="miBuidSalarySheet_Click"></MenuItem>
-                    <MenuItem Name="miDepartment" Header="Departments" Click="miDepartment_Click"></MenuItem>
+                    <MenuItem Name="miObjects" Header="Objects" Click="miObjects_Click"></MenuItem>
                 </MenuItem>
                 <MenuItem Header="System" Height="24" Width="70">
                     <MenuItem Name="miSystemlogout" Header="Log out" Click="miSystem_Click"></MenuItem>

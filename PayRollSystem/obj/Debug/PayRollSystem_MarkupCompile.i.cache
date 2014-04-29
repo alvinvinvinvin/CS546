@@ -4,17 +4,17 @@
 winexe
 C#
 .cs
-D:\study\csharp project\project2\PayRollSystem\PayRollSystem\obj\Debug\
+D:\study\csharp project\project2\PayRollSystem\CS546\PayRollSystem\obj\Debug\
 PayRollSystem
 none
 false
 DEBUG;TRACE
-D:\study\csharp project\project2\PayRollSystem\PayRollSystem\App.xaml
-7621257485
+D:\study\csharp project\project2\PayRollSystem\CS546\PayRollSystem\App.xaml
+7-127360916
 
-15-1385174474
-16-510417152
-DepartmentEditWindow.xaml;DepartmentListWindow.xaml;EmployeeEditWindow.xaml;LoginWindow.xaml;MainWindow.xaml;SalarySheet.xaml;SalarySheetEditWindow.xaml;
+15-1112684807
+16572728364
+DepartmentEditWindow.xaml;ObjectsWindow.xaml;EmployeeEditWindow.xaml;LoginWindow.xaml;MainWindow.xaml;SalarySheet.xaml;SalarySheetEditWindow.xaml;
 
 False
 

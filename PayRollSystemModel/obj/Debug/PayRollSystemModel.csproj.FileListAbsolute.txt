@@ -3,3 +3,8 @@ D:\study\csharp project\project2\PayRollSystem\PayRollSystemModel\bin\Debug\PayR
 D:\study\csharp project\project2\PayRollSystem\PayRollSystemModel\obj\Debug\PayRollSystemModel.dll
 D:\study\csharp project\project2\PayRollSystem\PayRollSystemModel\obj\Debug\PayRollSystemModel.pdb
 D:\study\csharp project\project2\PayRollSystem\PayRollSystemModel\obj\Debug\PayRollSystemModel.csprojResolveAssemblyReference.cache
+D:\study\csharp project\project2\PayRollSystem\CS546\PayRollSystemModel\bin\Debug\PayRollSystemModel.dll
+D:\study\csharp project\project2\PayRollSystem\CS546\PayRollSystemModel\bin\Debug\PayRollSystemModel.pdb
+D:\study\csharp project\project2\PayRollSystem\CS546\PayRollSystemModel\obj\Debug\PayRollSystemModel.csprojResolveAssemblyReference.cache
+D:\study\csharp project\project2\PayRollSystem\CS546\PayRollSystemModel\obj\Debug\PayRollSystemModel.dll
+D:\study\csharp project\project2\PayRollSystem\CS546\PayRollSystemModel\obj\Debug\PayRollSystemModel.pdb

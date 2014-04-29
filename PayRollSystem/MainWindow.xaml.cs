@@ -162,12 +162,6 @@ namespace PayRollSystem
 
         }
 
-        private void miDepartment_Click(object sender, RoutedEventArgs e)
-        {
-            DepartmentListWindow dptlist = new DepartmentListWindow();
-            dptlist.ShowDialog();
-        }
-
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
             Employee employee = (Employee)datagrid.SelectedItem;
@@ -233,6 +227,12 @@ namespace PayRollSystem
             salarysheet.editerDptID = LoginerDepartmentID;
             salarysheet.ShowDialog();
             
+        }
+
+        private void miObjects_Click(object sender, RoutedEventArgs e)
+        {
+            ObjectsWindow objWin = new ObjectsWindow();
+            objWin.Show();
         }
 
     }

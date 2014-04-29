@@ -5,3 +5,10 @@ D:\study\csharp project\project2\PayRollSystem\PayRollSystemDAL\bin\Debug\PayRol
 D:\study\csharp project\project2\PayRollSystem\PayRollSystemDAL\obj\Debug\PayRollSystemDAL.csprojResolveAssemblyReference.cache
 D:\study\csharp project\project2\PayRollSystem\PayRollSystemDAL\obj\Debug\PayRollSystemDAL.dll
 D:\study\csharp project\project2\PayRollSystem\PayRollSystemDAL\obj\Debug\PayRollSystemDAL.pdb
+D:\study\csharp project\project2\PayRollSystem\CS546\PayRollSystemDAL\bin\Debug\PayRollSystemDAL.dll
+D:\study\csharp project\project2\PayRollSystem\CS546\PayRollSystemDAL\bin\Debug\PayRollSystemDAL.pdb
+D:\study\csharp project\project2\PayRollSystem\CS546\PayRollSystemDAL\bin\Debug\PayRollSystemModel.dll
+D:\study\csharp project\project2\PayRollSystem\CS546\PayRollSystemDAL\bin\Debug\PayRollSystemModel.pdb
+D:\study\csharp project\project2\PayRollSystem\CS546\PayRollSystemDAL\obj\Debug\PayRollSystemDAL.csprojResolveAssemblyReference.cache
+D:\study\csharp project\project2\PayRollSystem\CS546\PayRollSystemDAL\obj\Debug\PayRollSystemDAL.dll
+D:\study\csharp project\project2\PayRollSystem\CS546\PayRollSystemDAL\obj\Debug\PayRollSystemDAL.pdb

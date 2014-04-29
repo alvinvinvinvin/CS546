@@ -15,11 +15,11 @@ using System.Windows.Shapes;
 namespace PayRollSystem
 {
     /// <summary>
-    /// Interaction logic for DepartmentEditWindow.xaml
+    /// Interaction logic for ObjectsWindow.xaml
     /// </summary>
-    public partial class DepartmentListWindow : Window
+    public partial class ObjectsWindow : Window
     {
-        public DepartmentListWindow()
+        public ObjectsWindow()
         {
             InitializeComponent();
         }

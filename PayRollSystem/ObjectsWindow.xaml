@@ -1,7 +1,7 @@
-﻿<Window x:Class="PayRollSystem.DepartmentListWindow"
+﻿<Window x:Class="PayRollSystem.ObjectsWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        Title="DepartmentEditWindow" Height="300" Width="500"
+        Title="ObjectsWindow" Height="300" Width="500"
         WindowStartupLocation="CenterScreen" ResizeMode="NoResize">
     <Grid>
         <Grid>
@@ -19,8 +19,9 @@
                 </ToolBar>
                 <DataGrid Name="datagrid" IsReadOnly="True" AutoGenerateColumns="False">
                     <DataGrid.Columns>
-                        <DataGridTextColumn x:Name="colDepartmentName" Width="100" Binding="{Binding DepartmentName}"></DataGridTextColumn>
-                        <DataGridTextColumn x:Name="colDepartmentManagerName" Width="100" Binding="{Binding DepartmentManagerName}"></DataGridTextColumn>
+                        <DataGridTextColumn x:Name="colObjectName" Width="100" Binding="{Binding objectName}"></DataGridTextColumn>
+                        <DataGridTextColumn x:Name="colStartDate" Width="100" Binding="{Binding startDate}"></DataGridTextColumn>
+                        <DataGridTextColumn x:Name="colDueDate" Width="100" Binding="{Binding dueDate}"></DataGridTextColumn>
                     </DataGrid.Columns>
                 </DataGrid>
             </DockPanel>

@@ -231,8 +231,8 @@ namespace PayRollSystem
 
         private void miObjects_Click(object sender, RoutedEventArgs e)
         {
-            ObjectsWindow objWin = new ObjectsWindow();
-            objWin.Show();
+            ProjectsWindow prjWin = new ProjectsWindow();
+            prjWin.Show();
         }
 
     }

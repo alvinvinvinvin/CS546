@@ -55,6 +55,28 @@ namespace PayRollSystemDAL
                 throw new Exception("Erro! Expetitive UserName!");
             }
         }
+
+        public Employee getByID(Guid ID)
+        {
+            DataTable dtEmp = SqlHelper.ExecuteDataTable(
+                                @"select * from T_Employee where ID=@id",
+                                new SqlParameter("@id",ID));
+            Employee employee = new Employee();
+
+            if (dtEmp.Rows.Count <= 0)
+            {
+                return null;
+            }
+            else if (dtEmp.Rows.Count == 1)
+            {
+                employee = ToModel(dtEmp.Rows[0]);
+                return employee;
+            }
+            else
+            {
+                throw new Exception("Erro when getting employee bu id!");
+            }
+        }
         public Employee[] ListAll()
         {
             DataTable table = SqlHelper.ExecuteDataTable("select * from T_Employee where IsDeleted = 0");
@@ -296,5 +318,7 @@ namespace PayRollSystemDAL
                 return false;
             }
         }
+
+
     }
 }

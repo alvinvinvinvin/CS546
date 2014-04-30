@@ -54,5 +54,5 @@ D:\study\csharp project\project2\PayRollSystem\CS546\PayRollSystem\obj\Debug\Pay
 D:\study\csharp project\project2\PayRollSystem\CS546\PayRollSystem\obj\Debug\PayRollSystem.g.resources
 D:\study\csharp project\project2\PayRollSystem\CS546\PayRollSystem\obj\Debug\PayRollSystem.Properties.Resources.resources
 D:\study\csharp project\project2\PayRollSystem\CS546\PayRollSystem\obj\Debug\PayRollSystem.csproj.GenerateResource.Cache
-D:\study\csharp project\project2\PayRollSystem\CS546\PayRollSystem\obj\Debug\ObjectsWindow.baml
-D:\study\csharp project\project2\PayRollSystem\CS546\PayRollSystem\obj\Debug\ObjectsWindow.g.cs
+D:\study\csharp project\project2\PayRollSystem\CS546\PayRollSystem\obj\Debug\ProjectsWindow.baml
+D:\study\csharp project\project2\PayRollSystem\CS546\PayRollSystem\obj\Debug\ProjectsWindow.g.cs

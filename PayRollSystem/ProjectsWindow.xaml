@@ -1,0 +1,32 @@
+﻿<Window x:Class="PayRollSystem.ProjectsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ProjectsWindow" Height="300" Width="500"
+        WindowStartupLocation="CenterScreen" ResizeMode="NoResize" Loaded="Window_Loaded">
+    <Grid>
+        <Grid>
+            <DockPanel>
+            <ToolBar Name="tbEdit" DockPanel.Dock="Top" Height="40">
+                    <Button Name="btnAdd" ToolTip="Add" Click="btnAdd_Click">
+                        <Image Source="Images/icons/new.ico"></Image>
+                    </Button>
+                    <Button Name="btnEdit" ToolTip="Edit" Click="btnEdit_Click">
+                        <Image Source="Images/icons/edit.ico"></Image>
+                    </Button>
+                    <Button Name="btnDelete" ToolTip="Delete">
+                        <Image Source="Images/icons/delete3.ico"></Image>
+                    </Button>
+                </ToolBar>
+                <DataGrid Name="datagrid" IsReadOnly="True" AutoGenerateColumns="False">
+                    <DataGrid.Columns>
+                        <DataGridTextColumn Header="Project Name" x:Name="colProjectName" Width="100" Binding="{Binding projectName}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="StartDate" x:Name="colStartDate" Width="100" Binding="{Binding startDate}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="DueDate" x:Name="colDueDate" Width="100" Binding="{Binding dueDate}"></DataGridTextColumn>
+                        <DataGridTextColumn Header="Cost" x:Name="colCost" Width="100" Binding="{Binding cost}"></DataGridTextColumn>
+                    </DataGrid.Columns>
+                </DataGrid>
+            </DockPanel>
+        </Grid>
+        
+    </Grid>
+</Window>

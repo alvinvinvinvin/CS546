@@ -1,0 +1,32 @@
+﻿<Window x:Class="PayRollSystem.ProjectEditWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="ProjectEditWindow" Height="750" Width="600">
+    <Grid>
+        <DockPanel>
+            <ToolBar Name="tbEdit" DockPanel.Dock="Top" Height="50">
+                <Button Name="btnAdd" ToolTip="Add">
+                    <Image Source="Images/icons/new.ico"></Image>
+                </Button>
+                <Button Name="btnDelete" ToolTip="Delete">
+                    <Image Source="Images/icons/delete3.ico"></Image>
+                </Button>
+            </ToolBar>
+            <DataGrid Name="datagrid" IsReadOnly="True" AutoGenerateColumns="False" DockPanel.Dock="Top" Height="300">
+                <DataGrid.Columns>
+                    <DataGridCheckBoxColumn x:Name="colCheckBox" Header="Choose"></DataGridCheckBoxColumn>
+                    <DataGridTextColumn x:Name="colEmpName" Width="100" Header="Name" Binding="{Binding RealName}"></DataGridTextColumn>
+                    <DataGridComboBoxColumn Header="Rank" Width="100" SelectedValueBinding="{Binding RankID}" SelectedValuePath="RankID"
+                                            DisplayMemberPath="RankName" x:Name="columnRankId"></DataGridComboBoxColumn>
+                    <DataGridComboBoxColumn Header="Department" Width="100" SelectedValueBinding="{Binding DepartmentID}" SelectedValuePath="DepartmentID"
+                                        DisplayMemberPath="DepartmentName" x:Name="columnDepartmentId"></DataGridComboBoxColumn>
+                    <DataGridTextColumn x:Name="dgtcAfterTaxWage" Header="AfterTaxWage" Width="100" Binding="{Binding AfterTaxWage}"></DataGridTextColumn>
+                </DataGrid.Columns>
+            </DataGrid>
+            <GroupBox DockPanel.Dock="Top" Height="350">
+                
+            </GroupBox>
+            
+        </DockPanel>
+    </Grid>
+</Window>

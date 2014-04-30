@@ -8,9 +8,11 @@ namespace PayRollSystemModel
 {
     public class Project
     {
+        
         public Guid projectID { get; set; }
-        public Guid? departmentID{get; set;}
-        public Guid? employeeID { get; set; }
-        public decimal? timeperiod { get; set; }
+        public string projectName { get; set; }
+        public DateTime? startDate { get; set; }
+        public DateTime? dueDate { get; set; }
+        public decimal? cost { get; set; }
     }
 }

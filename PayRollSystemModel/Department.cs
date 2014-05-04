@@ -12,5 +12,6 @@ namespace PayRollSystemModel
         public string DepartmentName { get; set; }
         public Guid? DepartmentManagerID { get; set; }
         public bool IsDeleted { get; set; }
+        public bool IsSelected { get; set; }
     }
 }

@@ -232,6 +232,7 @@ namespace PayRollSystem
         private void miObjects_Click(object sender, RoutedEventArgs e)
         {
             ProjectsWindow prjWin = new ProjectsWindow();
+            prjWin.dptID = LoginerDepartmentID;
             prjWin.Show();
         }
 

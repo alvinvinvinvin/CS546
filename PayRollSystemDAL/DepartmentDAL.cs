@@ -20,6 +20,26 @@ namespace PayRollSystemDAL
             department.IsDeleted = (bool)row["IsDeleted"];
             return department;
         }
+
+        public Department getByID(Guid dptID)
+        {
+            DataTable dt = SqlHelper.ExecuteDataTable(@"select * from T_Department where DepartmentID=@dptID",
+                new SqlParameter("@dptID", dptID));
+            Department dpt = new Department();
+            if (dt.Rows.Count <= 0)
+            {
+                return null;
+            }
+            else if (dt.Rows.Count == 1)
+            {
+                dpt = ToModel(dt.Rows[0]);
+                return dpt;
+            }
+            else
+            {
+                throw new Exception("Erro when getting Department bu id!");
+            }
+        }
         public Department[] ListAll()
         {
             DataTable table = SqlHelper.ExecuteDataTable("select * from T_Department");
@@ -65,6 +85,27 @@ namespace PayRollSystemDAL
                     where DepartmentID = @dptid",
                      new SqlParameter("@dptid",dptid));
         }
-        
+
+        public void addDepartment(Department department)
+        {
+
+            SqlHelper.ExecuteNonQuery(@"INSERT INTO [dbo].[T_Department]
+                                       (DepartmentID
+                                       ,DepartmentName
+                                       ,DepartmentManagerID
+                                       ,IsDeleted
+                                       ,DepartmentManagerName)
+                                 VALUES
+                                       (@DepartmentID
+                                       ,@DepartmentName
+                                       ,@DepartmentManagerID
+                                       ,0
+                                       ,@DepartmentManagerName)",
+              new SqlParameter("@DepartmentID", department.DepartmentID),
+              new SqlParameter("@DepartmentName",SqlHelper.ToDBValue(department.DepartmentName)),
+              new SqlParameter("@DepartmentManagerID",SqlHelper.ToDBValue(department.DepartmentManagerID)),
+              new SqlParameter("@DepartmentManagerName", SqlHelper.ToDBValue(null)));
+        }
+
     }
 }

@@ -50,5 +50,7 @@ namespace PayRollSystemModel
             set;
         }        
         public DateTime? LastPaidDate { get; set; }
+
+        public bool IsSelected { get; set; }
     }
 }

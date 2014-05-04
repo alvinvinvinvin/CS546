@@ -1,4 +1,5 @@
 ﻿using PayRollSystemDAL;
+using PayRollSystemModel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -20,6 +21,7 @@ namespace PayRollSystem
     /// </summary>
     public partial class ProjectsWindow : Window
     {
+        public Guid dptID;
         public ProjectsWindow()
         {
             InitializeComponent();
@@ -37,14 +39,45 @@ namespace PayRollSystem
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
-            ProjectEditWindow prjEW = new ProjectEditWindow();
-            prjEW.Show();
+            Department editorDpt = new DepartmentDAL().getByID(dptID);
+            string admin = editorDpt.DepartmentName;
+            if (admin == "PresidentOffice")
+            {
+                ProjectEditAdmin prjEA = new ProjectEditAdmin();
+                prjEA.isEdited = false;
+                prjEA.Show();
+            }
+            else
+            {
+                ProjectEditWindow prjEW = new ProjectEditWindow();
+                prjEW.dpt = editorDpt;
+                prjEW.Show();
+            }
         }
 
         private void btnEdit_Click(object sender, RoutedEventArgs e)
         {
-            ProjectEditWindow prjEW = new ProjectEditWindow();
-            prjEW.Show();
+            Project prj = (Project)datagrid.SelectedItem;
+            if (prj == null)
+            {
+                MessageBox.Show("please select project!");
+                return;
+            }
+            Department editorDpt = new DepartmentDAL().getByID(dptID);
+            string admin = editorDpt.DepartmentName;
+            if (admin == "PresidentOffice")
+            {
+                ProjectEditAdmin prjEA = new ProjectEditAdmin();
+                prjEA.isEdited = true;
+                prjEA.prj = prj;
+                prjEA.Show();
+            }
+            else
+            {
+                ProjectEditWindow prjEW = new ProjectEditWindow();
+                prjEW.prj = prj;
+                prjEW.Show();
+            }
         }
 
     }

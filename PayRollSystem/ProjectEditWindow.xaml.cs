@@ -1,4 +1,6 @@
-﻿using System;
+﻿using PayRollSystemDAL;
+using PayRollSystemModel;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -19,9 +21,29 @@ namespace PayRollSystem
     /// </summary>
     public partial class ProjectEditWindow : Window
     {
+        public Project prj;
+        public Department dpt;
+
         public ProjectEditWindow()
         {
             InitializeComponent();
         }
+
+        public void loadAllEmployee()
+        {
+            datagrid.ItemsSource = new EmployeeDAL().ListAll();
+        }
+
+        public void loadAllParticipators()
+        {
+            datagrid.ItemsSource = new ProjectDAL().listAllParticipators(prj);
+        }
+
+        private void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            colRankId.ItemsSource = new RankDAL().ListAll();
+
+        }
+
     }
 }

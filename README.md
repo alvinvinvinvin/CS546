@@ -3,6 +3,18 @@ CS546
 
 Oriented-Object Software Development Project
 
+
+Payroll System 
+
+A software company has several employees - some of them are administrators such as President, Vice-President and so on. Other employees are classified into two groups - managers and software developers. The company has several departments. Each department is managed by one or more managers, and has one or more software developers. An employee may work for more than one department. The salary for an employee depends on the rank - manager, project leader, senior software developer, programmer etc. The salary may change at any time after initial hiring and may not be the same for two people of the same rank. The aim of this project is to develop a payroll system for this company. The following minimal set of functionalities must be included:
+• Hire a new employee. This may include administrators as well. While hiring, the company and the person being hired may negotiate on the salary. 
+• Fire an employee. 
+• Promote an employee to a higher rank. This comes with an additional salary. The development team may decide this in consultation with the customers. 
+• Prepare monthly pay stub for each employee. This must include base salary, deductions and taxes withheld, if any. The pay stub must also indicate the department(s) for which the employee worked. 
+
+The software product must have a Graphical User Interface. Please consider the security aspects for this project. 
+
+
 Additional Requirements for the project
 
 

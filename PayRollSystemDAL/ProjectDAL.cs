@@ -37,13 +37,39 @@ namespace PayRollSystemDAL
             return prjs;
         }
 
-        public Project getPrjbyName(string projectName)
+        public Project[] listPrjsByDpt(Guid dptID)
+        {
+            DataTable dtPrj = SqlHelper.ExecuteDataTable(@"select * from T_PrjDptParticipation where departmentID=@dptID",
+                new SqlParameter("@dptID",dptID));
+            Project[] prjs = new Project[dtPrj.Rows.Count];
+            for (int i = 0; i < dtPrj.Rows.Count; i++)
+            {
+                Project prj = getPrjbyID((Guid)dtPrj.Rows[i][1]);
+                prjs[i] = prj;
+            }
+            return prjs;
+        }
+
+        public Project getPrjbyID(Guid prjID)
         {
             DataTable dtPrj = SqlHelper.ExecuteDataTable(
-                    @"select * from T_Project where projectName=@prjName",
-                                new SqlParameter("@prjName",projectName));
+                    @"select * from T_Project where projectID=@prjID",
+                                new SqlParameter("@prjID", prjID));
             Project prj = ToModel(dtPrj.Rows[0]);
             return prj;
+        }
+
+        public Project getPrjbyName(string prjName)
+        {
+            DataTable dtPrj = SqlHelper.ExecuteDataTable(
+                @"select * from T_Project where projectName=@prjName",
+                new SqlParameter("@prjName", prjName));
+            if (dtPrj.Rows.Count == 1)
+            {
+                Project prj = ToModel(dtPrj.Rows[0]);
+                return prj;
+            }
+            else throw new Exception("duplication of prjName."); ;
         }
 
         public int? countPeriod(Project prj)
@@ -58,16 +84,48 @@ namespace PayRollSystemDAL
             return period/7;
         }
 
+        public int? countEmpPeriod(Participation part)
+        {
+            DataTable dtDiff = SqlHelper.ExecuteDataTable(
+                @"select datadiff(day, @startDate, @quitDate)",
+                new SqlParameter("@startDate", SqlHelper.ToDBValue(part.startDate)),
+                new SqlParameter("@quitDate", SqlHelper.ToDBValue(part.quitDate)));
+            int? period = (int?)SqlHelper.FromDBValue(dtDiff.Rows[0][0]);
+            return period / 7;
+        }
+
+        public decimal? costInwageNew(Participation parti)
+        {
+            EmployeeDAL empDAL = new EmployeeDAL();
+            decimal? cost=0;
+            DataTable dtParti = SqlHelper.ExecuteDataTable(@"select * from
+            T_PrjParticipation where projectID = @prjID and employeeID=@empID",
+            new SqlParameter("@prjID", parti.projectID),
+            new SqlParameter("@empID", parti.employeeID));
+            if (dtParti.Rows.Count > 0)
+            {
+                  Employee emp = empDAL.getByID(parti.employeeID); 
+                  cost = countEmpPeriod(parti)*emp.AfterTaxWage;
+            }
+            
+            return cost;
+        }
+        
+
         public decimal? costInWage(Project prj)
         {
 
             Employee[] employees = listAllParticipators(prj);
             decimal? totalWage = 0;
-            for (int i = 0; i < employees.Length; i++)
+            if (employees != null)
             {
-                totalWage += employees[i].AfterTaxWage;
+                for (int i = 0; i < employees.Length; i++)
+                {
+                    totalWage += employees[i].AfterTaxWage;
+                }
+                return totalWage;
             }
-            return totalWage;
+            else return null;
 
             //DataTable dtEmpID = SqlHelper.ExecuteDataTable(
             //      "@select employeeID from T_PrjParticipation where projectID=@prjID",
@@ -90,7 +148,7 @@ namespace PayRollSystemDAL
                   (projectID, projectName, startDate, dueDate, costinwage, costinother, cost, description)
                     values(@prjID, @prjName, @startDate, @dueDate, @costinwage, @costinother, @cost, @description)",
                      new SqlParameter("@prjID",prj.projectID),
-                     new SqlParameter("@prjName",prj.projectName),
+                     new SqlParameter("@prjName",SqlHelper.ToDBValue(prj.projectName)),
                      new SqlParameter("@startDate",SqlHelper.ToDBValue(prj.startDate)),
                      new SqlParameter("@dueDate",SqlHelper.ToDBValue(prj.dueDate)),
                      new SqlParameter("@costinwage", SqlHelper.ToDBValue(prj.costinwage)),
@@ -108,8 +166,9 @@ namespace PayRollSystemDAL
                             costinwage=@costinwage,
                             costinother=@costinother,
                             cost=@cost,
-                            description=@description",
-                   new SqlParameter("@prjName",prj.projectName),
+                            description=@description where projectID=@prjID",
+                   new SqlParameter("@prjID",prj.projectID),
+                   new SqlParameter("@prjName",SqlHelper.ToDBValue(prj.projectName)),
                    new SqlParameter("@startDate",SqlHelper.ToDBValue(prj.startDate)),
                    new SqlParameter("@dueDate",SqlHelper.ToDBValue(prj.dueDate)),
                    new SqlParameter("@costinwage", SqlHelper.ToDBValue(prj.costinwage)),
@@ -118,27 +177,40 @@ namespace PayRollSystemDAL
                    new SqlParameter("@description",SqlHelper.ToDBValue(prj.description)));
         }
 
-        public void deletePrj(Project prj)
-        {
-            SqlHelper.ExecuteNonQuery(@"delete from T_Project where projectID=@prjID",
-                    new SqlParameter("@prjID",prj.projectID));
-        }
-
-        public void addEmployeeToPrj(Project project, Employee employee)
+        public void insertEmployeeToPrj(Project project, Employee employee)
         {
             SqlHelper.ExecuteNonQuery(@"insert into T_PrjParticipation
                                 (participatingID, projectID, employeeID) 
                                 values (newid(), @projectID, @employeeID)",
                                 new SqlParameter("@projectID",project.projectID),
-                                new SqlParameter("@employeeID",employee.ID));
+                                new SqlParameter("@employeeID",employee.ID)
+                                );
         }
+        
 
         public bool IsParticipatorExisted(Project project, Employee employee)
         {
-            object obj = SqlHelper.ExecuteScalar(@"select * from T_PrjParticipation 
+            object obj = SqlHelper.ExecuteScalar(@"select count(*) from T_PrjParticipation 
                             where projectID=@prjID and employeeID=@empID",
-                            new SqlParameter("@projectID", project.projectID),
-                            new SqlParameter("@employeeID", employee.ID));
+                            new SqlParameter("@prjID",project.projectID),
+                            new SqlParameter("@empID",employee.ID));
+            return Convert.ToInt32(obj) > 0;
+        }
+
+        public bool IsAssignedDptExisted(Project prj, Department dpt)
+        {
+            object obj = SqlHelper.ExecuteScalar(@"select count(*) from T_PrjDptParticipation
+                             where projectID=@prjID and departmentID=@dptID",
+                             new SqlParameter("@prjID",prj.projectID),
+                             new SqlParameter("@dptID",dpt.DepartmentID));
+            return Convert.ToInt32(obj) > 0;
+        }
+
+        public bool IsPrjNameExisted(string name)
+        {
+            object obj = SqlHelper.ExecuteScalar(@"select count(*) from T_Project
+                            where projectName=@prjName",
+                           new SqlParameter("@prjName",name));
             return Convert.ToInt32(obj) > 0;
         }
 
@@ -147,12 +219,16 @@ namespace PayRollSystemDAL
             DataTable dtEmpID = SqlHelper.ExecuteDataTable(
                   @"select employeeID from T_PrjParticipation where projectID=@prjID",
                   new SqlParameter("@prjID",SqlHelper.ToDBValue(prj.projectID)));
-            Employee[] employees = new Employee[dtEmpID.Rows.Count];
-            for (int i = 0; i < dtEmpID.Rows.Count; i++)
+            if (dtEmpID.Rows.Count > 0)
             {
-                employees[i] = new EmployeeDAL().getByID((Guid)dtEmpID.Rows[i][0]);
+                Employee[] employees = new Employee[dtEmpID.Rows.Count];
+                for (int i = 0; i < dtEmpID.Rows.Count; i++)
+                {
+                    employees[i] = new EmployeeDAL().getByID((Guid)dtEmpID.Rows[i][0]);
+                }
+                return employees;
             }
-            return employees;
+            else return null;
         }
 
         public Employee[] listDepartmentParticipators(Project prj, Department dpt)
@@ -168,6 +244,7 @@ namespace PayRollSystemDAL
             }
             return employees;
         }
+        
 
         public Department[] listAssignedDepartment(Project prj)
         {
@@ -182,13 +259,33 @@ namespace PayRollSystemDAL
             return dpts;
         }
 
-        public bool isDepartmentExisted(Project prj, Department dpt)
+        public void insertAssignedDepartment(Project prj, Department[] dpt)
         {
-            object obj = SqlHelper.ExecuteScalar(@"select * from T_PrjDptParticipation 
-                            where projectID=@prjID and departmentID=@dptID",
-                            new SqlParameter("@projectID", prj.projectID),
-                            new SqlParameter("@departmentID", dpt.DepartmentID));
-            return Convert.ToInt32(obj) > 0;
+            for (int i = 0; i < dpt.Length; i++)
+            {
+                SqlHelper.ExecuteNonQuery(@"insert into 
+                T_PrjDptParticipation(participatingID, projectID, departmentID)
+                values(newid(), @prjID, @dptID)",
+                    new SqlParameter("@prjID",SqlHelper.ToDBValue(prj.projectID)),
+                    new SqlParameter("@dptID",SqlHelper.ToDBValue(dpt[i].DepartmentID)));
+            }
+        }
+
+        //public void updateAssignedDepartment(Project prj, Department[] dpt)
+        //{
+        //    for (int i = 0; i < dpt.Length; i++)
+        //    {
+        //        SqlHelper.ExecuteNonQuery(@"update TT_PrjDptParticipation set")
+        //    }
+        //}
+        public void deletePrj(Project prj)
+        {
+            SqlHelper.ExecuteNonQuery(@"delete from T_Project where projectID=@prjID",
+                new SqlParameter("@prjID", prj.projectID));
+            SqlHelper.ExecuteNonQuery(@"delete from T_PrjParticipation where projectID=@prjID",
+                new SqlParameter("@prjID", prj.projectID));
+            SqlHelper.ExecuteNonQuery(@"delete from T_PrjDptParticipation where projectID=@prjID",
+                new SqlParameter("@prjID", prj.projectID));
         }
     }
 }

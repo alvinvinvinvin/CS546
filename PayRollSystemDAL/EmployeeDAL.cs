@@ -59,7 +59,7 @@ namespace PayRollSystemDAL
         public Employee getByID(Guid ID)
         {
             DataTable dtEmp = SqlHelper.ExecuteDataTable(
-                                @"select * from T_Employee where ID=@id",
+                                @"select * from T_Employee where ID=@id and IsDeleted = 0",
                                 new SqlParameter("@id",ID));
             Employee employee = new Employee();
 
@@ -118,6 +118,19 @@ namespace PayRollSystemDAL
                 Employee employee = ToModel(table.Rows[i]);
                 employee.ManagerName = GetManagerUserNameBydptID(employee);
                 UpdateManagerIDtoDepartmentTable(employee);
+                employees[i] = employee;
+            }
+            return employees;
+        }
+
+        public Employee[] listByDepartment(Guid dptId)
+        {
+            DataTable table = SqlHelper.ExecuteDataTable(@"select * from T_Employee where DepartmentID = @dptId and IsDeleted = 0",
+                                         new SqlParameter("@dptId", dptId));
+            Employee[] employees = new Employee[table.Rows.Count];
+            for (int i = 0; i < table.Rows.Count; i++)
+            {
+                Employee employee = ToModel(table.Rows[i]);
                 employees[i] = employee;
             }
             return employees;

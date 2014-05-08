@@ -3,37 +3,40 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         Title="ProjectEditWindowForAdmin" Height="800" Width="600" Loaded="Window_Loaded">
     <Grid>
+        
         <DockPanel Height="350" Margin="0,10,0,0" VerticalAlignment="Top">
-            <ToolBar Name="tbEdit" DockPanel.Dock="Top" Height="50">
-                <Button Name="btnAdd" ToolTip="Add">
+            <!--<ToolBar Name="tbEdit" DockPanel.Dock="Top" Height="50">
+                <Button Name="btnAdd" ToolTip="Add" Click="btnAdd_Click">
                     <Image Source="Images/icons/new.ico"></Image>
                 </Button>
                 <Button Name="btnDelete" ToolTip="Delete">
                     <Image Source="Images/icons/delete3.ico"></Image>
                 </Button>
-            </ToolBar>
-            <DataGrid Name="datagrid" AutoGenerateColumns="False" DockPanel.Dock="Top" Height="300">
+            </ToolBar>-->
+            
+            <DataGrid Name="datagrid" AutoGenerateColumns="False" DockPanel.Dock="Top">
                 <DataGrid.Columns>
-                    <DataGridCheckBoxColumn x:Name="colCheckBox" Header="Choose" IsReadOnly="False" Binding="{Binding IsSelected}"></DataGridCheckBoxColumn>
+                    <DataGridCheckBoxColumn x:Name="colCheckBox" Header="Choose" IsReadOnly="False" Binding="{Binding IsSelected, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"></DataGridCheckBoxColumn>
                     <!--<DataGridComboBoxColumn Header="Department" Width="100" SelectedValueBinding="{Binding DepartmentID}" SelectedValuePath="DepartmentID"
                                         DisplayMemberPath="DepartmentName" IsReadOnly="True" x:Name="colDepartmentId"></DataGridComboBoxColumn>-->
                     <DataGridTextColumn Header="Department" Binding="{Binding DepartmentName}" Width="100" IsReadOnly="True"></DataGridTextColumn>
                 </DataGrid.Columns>
             </DataGrid>
         </DockPanel>
+        
         <Grid Name="gridPrj">
             <TextBlock HorizontalAlignment="Left" Margin="22,378,0,0" TextWrapping="Wrap" Text="Project Name" VerticalAlignment="Top" Height="20" Width="78"/>
             <TextBox x:Name="txtProjectName" Text="{Binding projectName}" HorizontalAlignment="Left" Height="23" Margin="105,377,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="441"/>
             <TextBox x:Name="txtDescription" Text="{Binding description}" HorizontalAlignment="Left" Height="116" Margin="105,421,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="441"/>
             <TextBlock HorizontalAlignment="Left" Margin="22,421,0,0" TextWrapping="Wrap" Text="Description" VerticalAlignment="Top" Height="23" Width="78"/>
             <TextBlock HorizontalAlignment="Left" Margin="22,632,0,0" TextWrapping="Wrap" Text="Cost in Wages" VerticalAlignment="Top" Height="23" Width="78"/>
-            <TextBox x:Name="txtCostinWage" IsReadOnly="True" HorizontalAlignment="Left" Height="23" Margin="105,632,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="157"/>
+            <TextBox x:Name="txtCostinWage" Text="{Binding costinwage}" IsReadOnly="True" HorizontalAlignment="Left" Height="23" Margin="105,632,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="157"/>
             <TextBlock HorizontalAlignment="Left" Margin="285,632,0,0" TextWrapping="Wrap" Text="Cost in Others" VerticalAlignment="Top" Height="23" Width="82"/>
-            <TextBox x:Name="txtCostinOther" HorizontalAlignment="Left" Height="23" Margin="381,632,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="165"/>
+            <TextBox x:Name="txtCostinOther" Text="{Binding costinother}" HorizontalAlignment="Left" Height="23" Margin="381,632,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="165"/>
             <TextBlock HorizontalAlignment="Left" Margin="22,670,0,0" TextWrapping="Wrap" Text="Cost in Total" VerticalAlignment="Top" Height="22" Width="78"/>
             <TextBox x:Name="txtCostinTotal" IsReadOnly="True" Text="{Binding cost}" HorizontalAlignment="Left" Height="23" Margin="105,669,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="157"/>
-            <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="77,713,0,0" VerticalAlignment="Top" Width="132" Height="32"/>
-            <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="367,713,0,0" VerticalAlignment="Top" Width="134" Height="32"/>
+            <Button x:Name="btnSave" Content="Save" HorizontalAlignment="Left" Margin="77,713,0,0" VerticalAlignment="Top" Width="132" Height="32" Click="btnSave_Click"/>
+            <Button x:Name="btnCancel" Content="Cancel" HorizontalAlignment="Left" Margin="367,713,0,0" VerticalAlignment="Top" Width="134" Height="32" Click="btnCancel_Click"/>
             <TextBlock HorizontalAlignment="Left" Margin="364,562,0,0" TextWrapping="Wrap" Text="Start Date" VerticalAlignment="Top" Height="20" Width="64"/>
             <DatePicker x:Name="dpStartDate" SelectedDate="{Binding startDate}" HorizontalAlignment="Left" Margin="433,558,0,0" VerticalAlignment="Top"/>
             <TextBlock HorizontalAlignment="Left" Margin="367,602,0,0" TextWrapping="Wrap" Text="Due Date" VerticalAlignment="Top"/>
@@ -42,5 +45,7 @@
             <TextBox x:Name="txtPeriod" IsReadOnly="True" HorizontalAlignment="Left" Height="23" Margin="105,569,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
             <TextBlock HorizontalAlignment="Left" Margin="230,572,0,0" TextWrapping="Wrap" Text="weeks" VerticalAlignment="Top"/>
         </Grid>
+
     </Grid>
+
 </Window>

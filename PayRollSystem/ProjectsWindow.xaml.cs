@@ -31,10 +31,24 @@ namespace PayRollSystem
         {
             datagrid.ItemsSource = new ProjectDAL().listAll();
         }
+        public void loadAssigned()
+        {
+
+            datagrid.ItemsSource = new ProjectDAL().listPrjsByDpt(dptID);
+        }
 
         private void Window_Loaded(object sender, RoutedEventArgs e)
         {
-            loadAllData();
+            Department editorDpt = new DepartmentDAL().getByID(dptID);
+            string admin = editorDpt.DepartmentName;
+            if (admin == "PresidentOffice")
+            {
+                loadAllData();
+            }
+            else
+            {
+                loadAssigned();
+            }
         }
 
         private void btnAdd_Click(object sender, RoutedEventArgs e)
@@ -45,13 +59,10 @@ namespace PayRollSystem
             {
                 ProjectEditAdmin prjEA = new ProjectEditAdmin();
                 prjEA.isEdited = false;
-                prjEA.Show();
-            }
-            else
-            {
-                ProjectEditWindow prjEW = new ProjectEditWindow();
-                prjEW.dpt = editorDpt;
-                prjEW.Show();
+                //prjEA.btnDelete.Visibility = Visibility.Hidden;
+                prjEA.ShowDialog();
+                if (prjEA.DialogResult == true)
+                    loadAllData();
             }
         }
 
@@ -69,15 +80,44 @@ namespace PayRollSystem
             {
                 ProjectEditAdmin prjEA = new ProjectEditAdmin();
                 prjEA.isEdited = true;
+                //prjEA.btnDelete.Visibility = Visibility.Hidden;
                 prjEA.prj = prj;
-                prjEA.Show();
+                prjEA.ShowDialog();
+                if (prjEA.DialogResult == true)
+                    loadAllData();
             }
             else
             {
                 ProjectEditWindow prjEW = new ProjectEditWindow();
                 prjEW.prj = prj;
-                prjEW.Show();
+                prjEW.dpt = editorDpt;
+                prjEW.ShowDialog();
+                if (prjEW.DialogResult == true)
+                    loadAssigned();
             }
+        }
+
+        private void btnDelete_Click(object sender, RoutedEventArgs e)
+        {
+            Department editorDpt = new DepartmentDAL().getByID(dptID);
+            string admin = editorDpt.DepartmentName;
+            if (admin == "PresidentOffice")
+            {
+                Project prj = (Project)datagrid.SelectedItem;
+                if (prj == null)
+                {
+                    MessageBox.Show("please select project to delete!");
+                    return;
+                }
+                else
+                {
+                    ProjectDAL prjDAL = new ProjectDAL();
+                    prjDAL.deletePrj(prj);
+                    MessageBox.Show("Successful deleting!");
+                }
+                loadAllData();
+            }
+            
         }
 
     }

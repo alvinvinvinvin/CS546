@@ -1,12 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace PayRollSystemModel
 {
-    public class Employee
+    public class Employee : INotifyPropertyChanged
     {
         public Guid ID { get; set; }
         public string UserName { get; set; }
@@ -22,6 +23,9 @@ namespace PayRollSystemModel
         //public Guid? ManagerID { get; set; }
         public string ManagerName { get; set; }
         public string PaidFreq { get; set; }
+
+        public DateTime? startDate { get; set; }
+        public DateTime? quitDate { get; set; }
         //public Guid BaseSalaryRangeID { get; set; }
 
         //private decimal numBaseSalary;
@@ -50,7 +54,20 @@ namespace PayRollSystemModel
             set;
         }        
         public DateTime? LastPaidDate { get; set; }
+        private bool isSelected;
+        public bool IsSelected 
+        { 
+            get { return isSelected; }
+            set
+            {
+                this.isSelected = value;
+                if(PropertyChanged != null)
+                {
+                    PropertyChanged(this, new PropertyChangedEventArgs("IsSelected"));
+                }
+            }
+        }
 
-        public bool IsSelected { get; set; }
+        public event PropertyChangedEventHandler PropertyChanged;
     }
 }

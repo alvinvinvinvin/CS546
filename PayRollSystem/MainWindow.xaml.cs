@@ -231,9 +231,21 @@ namespace PayRollSystem
 
         private void miObjects_Click(object sender, RoutedEventArgs e)
         {
+
             ProjectsWindow prjWin = new ProjectsWindow();
             prjWin.dptID = LoginerDepartmentID;
-            prjWin.Show();
+            Department editorDpt = new DepartmentDAL().getByID(LoginerDepartmentID);
+            string admin = editorDpt.DepartmentName;
+            if (admin == "PresidentOffice")
+            {
+                prjWin.Show();
+            }
+            else
+            {
+                prjWin.btnAdd.Visibility = Visibility.Hidden;
+                prjWin.btnDelete.Visibility = Visibility.Hidden;
+                prjWin.Show();
+            } 
         }
 
     }
